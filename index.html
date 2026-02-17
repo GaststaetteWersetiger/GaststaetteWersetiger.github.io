@@ -1,0 +1,2065 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gaststätte Wersetiger</title>
+    <!-- Einbindung von Google Icons für z.B. Reservierung/Standort -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Gaststätte Wersetiger - Leckere Speisen & Gemütliches Ambiente">
+    <meta property="og:description"
+        content="Genießen Sie unsere vielfältige Auswahl an Schnitzeln, Steaks und mehr im Herzen von Münster.">
+    <meta property="og:image" content="Bild_Gaststätte.jpg">
+    <meta property="og:type" content="website">
+
+    <!-- Hier wird die Daten-Datei geladen -->
+    <script src="daten.js"></script>
+    <style>
+        /* CSS-Stile für das Layout und Farbschema */
+        :root {
+            --dunkelblau: #000066;
+            --blau: #406bc0;
+            --orange: #ffcc33;
+            --rot: #d91516;
+            --hell: #ffffff;
+            --dunkel: #333333;
+            --grau-bg: #f5f7fa;
+        }
+
+        html {
+            min-height: 100%;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Open Sans', 'Segoe UI', sans-serif;
+            /* Modernere Schriftart Fallback */
+            margin: 0;
+            padding: 0;
+            background-color: var(--grau-bg);
+            /* Heller grauer Hintergrund für Modernität */
+            color: var(--dunkel);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: var(--dunkelblau);
+            color: var(--hell);
+            padding: 0.8rem 0;
+            /* Etwas kompakter */
+            border-bottom: 5px solid var(--orange);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            /* Header Schatten */
+        }
+
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo img {
+            height: auto;
+            max-height: 60px;
+            width: auto;
+        }
+
+        .logo {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo span {
+            font-family: 'Comfortaa', cursive;
+            color: var(--orange);
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            border-bottom: 2px solid var(--orange);
+            padding-bottom: 2px;
+            letter-spacing: 1px;
+            font-weight: 400;
+            white-space: normal;
+            /* Allow wrapping */
+            line-height: 1.2;
+        }
+
+        /* Mobile Adjustments for Header */
+        @media (max-width: 600px) {
+            header .container {
+                flex-direction: column;
+                gap: 15px;
+                padding: 10px;
+            }
+
+            .logo {
+                flex-direction: column;
+                text-align: center;
+                width: 100%;
+            }
+
+            .logo img {
+                max-height: 50px;
+                margin-bottom: 5px;
+            }
+
+            .logo span {
+                font-size: 1.4rem;
+                white-space: normal;
+                /* Force wrap on very small screens */
+                border-bottom: 1px solid var(--orange);
+            }
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        nav ul li a {
+            color: var(--hell);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            display: block;
+            transition: background-color 0.3s;
+        }
+
+        nav ul li a:hover {
+            background-color: var(--blau);
+        }
+
+        /* Hauptbild Sektion (Startseite) */
+        .hero-section {
+            background: url('Bild_Gaststaette.jpg') no-repeat center center/cover;
+            height: 60vh;
+            /* Etwas größer gemacht, da es die Startseite ist */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--hell);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            /* Standardmäßig aktiv auf der Startseite */
+            display: flex;
+        }
+
+        .hero-section h1 {
+            font-size: 3rem;
+            background-color: rgba(0, 0, 102, 0.6);
+            /* Semi-transparenter Hintergrund */
+            padding: 1rem 2rem;
+            border-radius: 5px;
+        }
+
+        /* Hauptinhalt Sektionen */
+        main section {
+            padding: 3rem 0;
+            display: none;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+        }
+
+        /* Zeigt nur die aktive Sektion an (wird per JS zugewiesen) */
+        main section.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Die Hero Section wird ausgeblendet, sobald man auf einen Reiter klickt */
+        .hero-section.hidden {
+            display: none;
+        }
+
+
+        h2 {
+            color: var(--dunkelblau);
+            border-bottom: 2px solid var(--orange);
+            padding-bottom: 0.5rem;
+        }
+
+        /* Farbschema für Hervorhebungen */
+        main {
+            flex: 1;
+            background-color: var(--hell);
+        }
+
+        .footer-wrapper {
+            background-color: var(--dunkelblau);
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .highlight {
+            color: var(--orange);
+        }
+
+        .btn-primary {
+            background-color: var(--orange);
+            color: var(--dunkelblau);
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-flex;
+            align-items: center;
+            font-weight: bold;
+        }
+
+        .btn-primary:hover {
+            background-color: #ffbe00;
+            /* Etwas dunkleres Orange beim Hover */
+        }
+
+        .btn-primary .material-icons {
+            margin-right: 8px;
+        }
+
+        /* Speisekarte Stile */
+        #speisen-getraenke {
+            font-family: 'MV Boli', cursive;
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px dashed var(--blau);
+            padding: 0.5rem 0;
+        }
+
+        .menu-item .price {
+            font-weight: bold;
+            color: var(--dunkelblau);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dunkelblau);
+            color: var(--hell);
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: 2rem;
+        }
+
+        /* Impressum Styles */
+        .impressum-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .impressum-card {
+            background-color: var(--hell);
+            border-radius: 12px;
+            /* Runder */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            /* Weicherer Schatten */
+            padding: 2rem;
+            border-top: 4px solid var(--orange);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .impressum-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .impressum-card h3 {
+            margin-top: 0;
+            color: var(--dunkelblau);
+            border-bottom: 2px solid var(--blau);
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+        }
+
+        .impressum-card h4 {
+            color: var(--dunkel);
+            margin: 10px 0 5px 0;
+        }
+
+        .contact-info p {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 8px 0;
+        }
+
+        .contact-info i {
+            color: var(--orange);
+            font-size: 1.2rem;
+        }
+
+        .legal-notice {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 1rem;
+            line-height: 1.6;
+        }
+
+        .disclaimer-text {
+            font-size: 0.95rem;
+            color: #555;
+            text-align: justify;
+            line-height: 1.6;
+        }
+
+        /* Anfahrt Styles */
+        .anfahrt-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .anfahrt-info-card {
+            background: #f9f9f9;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--blau);
+        }
+
+        .anfahrt-info-card h4 {
+            margin-top: 0;
+            color: var(--dunkelblau);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .anfahrt-info-card h4 i {
+            color: var(--orange);
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 350px;
+            border: 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Calendar Styles */
+        .calendar-container {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .calendar-header {
+            background: var(--dunkelblau);
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .calendar-header button {
+            background: none;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            padding: 10px;
+            gap: 5px;
+        }
+
+        .calendar-day-header {
+            text-align: center;
+            font-weight: bold;
+            color: var(--dunkelblau);
+            padding: 5px 0;
+        }
+
+        .calendar-day {
+            text-align: center;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .calendar-day:hover:not(.disabled) {
+            background-color: var(--orange);
+            color: var(--dunkelblau);
+        }
+
+        .calendar-day.selected {
+            background-color: var(--dunkelblau);
+            color: #fff;
+        }
+
+        .calendar-day.disabled {
+            color: #ccc;
+            cursor: default;
+        }
+
+        .calendar-day.today {
+            border: 2px solid var(--orange);
+        }
+
+        .calendar-day.open-day {
+            font-weight: bold;
+            color: var(--dunkelblau);
+            background-color: rgba(64, 107, 192, 0.1);
+            /* Light blue bg */
+        }
+
+        .calendar-day.open-day:hover {
+            background-color: var(--orange);
+            color: var(--dunkelblau);
+        }
+
+        .calendar-day.open-day {
+            font-weight: bold;
+            color: var(--dunkelblau);
+            background-color: rgba(64, 107, 192, 0.1);
+            /* Light blue bg */
+        }
+
+        .calendar-day.open-day:hover {
+            background-color: var(--orange);
+            color: var(--dunkelblau);
+        }
+
+        /* Opening Hours Scroll Container */
+        .opening-hours-container {
+            max-height: 280px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 4px;
+            background: #fdfdfd;
+        }
+
+
+
+        /* Date Card Hover Effect */
+        .date-card:hover {
+            background-color: #f9f9f9;
+        }
+
+        /* Reservation Form Styles */
+        .reservation-form {
+            background: #f4f4f4;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--blau);
+            display: none;
+            /* Hidden until date selected */
+            position: relative;
+            /* For close button */
+        }
+
+        .close-form-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--dunkelblau);
+        }
+
+        .close-form-btn i {
+            font-size: 1.5rem;
+        }
+
+        .close-form-btn:hover {
+            color: var(--rot);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: var(--dunkelblau);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-family: inherit;
+            box-sizing: border-box;
+        }
+
+        /* Responsive Improvements */
+        @media (max-width: 900px) {
+            header .container {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            nav ul {
+                gap: 15px;
+                flex-wrap: wrap;
+                /* Allow wrapping */
+                justify-content: center;
+                padding: 0;
+            }
+
+            nav ul li a {
+                font-size: 0.95rem;
+                /* Slightly smaller but readable */
+                padding: 5px 10px;
+                /* Adjust padding */
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            /* Fix for Two-Column Menu on mobile */
+            section#speisen-getraenke>div[style*="grid-template-columns"] {
+                grid-template-columns: 1fr !important;
+                /* Stack vertically */
+                gap: 1.5rem !important;
+            }
+
+            nav ul li a {
+                white-space: normal;
+                line-height: 1.2;
+                /* Prevent breaking mid-word if possible, rely on wrap */
+            }
+        }
+
+        /* Back to top button */
+        #backToTop {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--orange);
+            color: var(--dunkelblau);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: none;
+            /* Hidden by default */
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 900;
+            border: none;
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        #backToTop:hover {
+            transform: scale(1.1);
+            background-color: #ffbe00;
+        }
+
+        /* Live Status Badge */
+        .live-status {
+            font-size: 0.85rem;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background-color: #eee;
+            color: #555;
+            margin-left: auto;
+            /* Push to right in mobile if needed, or flex adjust */
+        }
+
+        .live-status.open {
+            background-color: #e6f4ea;
+            color: #1e8e3e;
+            border: 1px solid #1e8e3e;
+        }
+
+        .live-status.closed {
+            background-color: #fce8e6;
+            color: #d93025;
+            border: 1px solid #d93025;
+        }
+
+        /* Cookie Banner */
+        #cookieBanner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(51, 51, 51, 0.95);
+            color: white;
+            padding: 20px;
+            display: none;
+            /* Hidden by default until checked */
+            flex-direction: column;
+            gap: 15px;
+            z-index: 2000;
+            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #cookieBanner p {
+            margin: 0;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        #cookieBanner .buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        #cookieBanner button {
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            border: none;
+        }
+
+        #cookieBanner .btn-accept {
+            background-color: var(--orange);
+            color: var(--dunkelblau);
+        }
+
+        #cookieBanner .btn-decline {
+            background-color: transparent;
+            color: #ddd;
+            border: 1px solid #999;
+        }
+
+        @media (min-width: 768px) {
+            #cookieBanner {
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                padding: 15px 40px;
+            }
+
+            #cookieBanner .buttons {
+                flex-shrink: 0;
+            }
+        }
+
+        /* Placeholder Cards Styling - NEW */
+        #startseite-bilder {
+            padding: 1rem 0 4rem 0;
+            background-color: var(--grau-bg);
+            text-align: center;
+        }
+
+        .placeholder-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .placeholder-card {
+            background: white;
+            border-radius: 12px;
+            padding: 3rem 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-top: 4px solid #ccc;
+            /* Default color */
+            position: relative;
+            overflow: hidden;
+        }
+
+        .placeholder-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .placeholder-icon-circle {
+            width: 80px;
+            height: 80px;
+            background-color: #f0f4f8;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: var(--blau);
+        }
+
+        .placeholder-card h4 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.2rem;
+            color: var(--dunkelblau);
+        }
+
+        .placeholder-card p {
+            color: #666;
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        .coming-soon-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: #eee;
+            color: #555;
+            font-size: 0.7rem;
+            font-weight: bold;
+            padding: 4px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="container">
+            <!-- Logo-Bereich mit Platzhalter-Text -->
+
+            <a href="#" class="logo" onclick="showSection(event, 'home')">
+                <img src="Logo_Wersetiger_klein.png" alt="Gaststätte Wersetiger Logo">
+                <span>Gaststätte Wersetiger</span>
+            </a>
+            <!-- Live Status (Desktop Position) -->
+            <div id="liveStatusContainer" class="live-status closed"
+                title="Status basiert auf aktuellen Öffnungszeiten">
+                <span id="statusIcon">🔴</span> <span id="statusText">Geschlossen</span>
+            </div>
+
+            <nav>
+                <ul>
+                    <!-- Navigationslinks (mit Ankern für die Sektionen) -->
+                    <li><a href="#speisen-getraenke" onclick="showSection(event, 'speisen-getraenke')">Speisen &
+                            Getränke</a></li>
+                    <li><a href="#oeffnungszeiten" onclick="showSection(event, 'oeffnungszeiten')">Öffnungszeiten &
+                            Reservierung</a></li>
+                    <li><a href="#anfahrt" onclick="showSection(event, 'anfahrt')">So finden Sie uns</a></li>
+                    <li><a href="#impressum" onclick="showSection(event, 'impressum')">Impressum</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- STARTSEITE / HAUPTBILD -->
+    <div id="home" class="hero-section">
+        <div class="container">
+            <h1>Willkommen in der Gaststätte Wersetiger</h1>
+        </div>
+    </div>
+
+    <style>
+        .hero-section {
+            /* Fügt das Bild als Hintergrund hinzu */
+            background-image: url('Bild_Gaststaette.jpg');
+
+            /* Passt die Bildgröße an den verfügbaren Platz an (skaliert) */
+            background-size: cover;
+
+            /* Zentriert das Bild im Container */
+            background-position: center;
+
+            /* Verhindert, dass sich das Bild wiederholt */
+            background-repeat: no-repeat;
+
+            /* Legt eine Mindesthöhe fest, damit das Bild sichtbar ist, auch wenn kein Text drin ist */
+            min-height: 400px;
+            /* Passe die Höhe nach Bedarf an */
+
+            /* Sorgt dafür, dass der Text im Container zentriert ist (falls du ihn behältst) */
+            display: none;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            /* Optional: Textfarbe, wenn das Bild dunkel ist */
+        }
+
+        /* Optional: Blendet den h1-Text visuell aus, wenn Option B oben verwendet wird */
+        .hero-section h1 {
+            display: none;
+        }
+    </style>
+
+    <main class="container">
+        <!-- PLATZHALTER BILDER (Startseite) -->
+        <section id="startseite-bilder" class="active">
+            <h2 style="text-align: center; margin-bottom: 0.5rem; border-bottom: none;">Hier entstehen neue Einblicke
+            </h2>
+            <p style="text-align: center; color: #666; margin-bottom: 1rem;">Wir aktualisieren aktuell unser
+                Bildmaterial für Sie.</p>
+
+            <div class="placeholder-grid">
+
+                <!-- Platzhalter 1 -->
+                <div class="placeholder-card" style="border-top-color: var(--orange);">
+                    <div class="coming-soon-badge">Demnächst</div>
+                    <div class="placeholder-icon-circle">
+                        <i class="material-icons" style="font-size: 2.5rem; color: var(--orange);">storefront</i>
+                    </div>
+                    <h4>Gastraum</h4>
+                    <p>Einblicke in unsere gemütlichen Räumlichkeiten und das Ambiente.</p>
+                </div>
+
+                <!-- Platzhalter 2 -->
+                <div class="placeholder-card" style="border-top-color: var(--blau);">
+                    <div class="coming-soon-badge">Demnächst</div>
+                    <div class="placeholder-icon-circle">
+                        <i class="material-icons" style="font-size: 2.5rem; color: var(--blau);">nature_people</i>
+                    </div>
+                    <h4>Außenbereich</h4>
+                    <p>Impressionen von unserer schönen Terrasse.</p>
+                </div>
+
+                <!-- Platzhalter 3 -->
+                <div class="placeholder-card" style="border-top-color: var(--rot);">
+                    <div class="coming-soon-badge">Demnächst</div>
+                    <div class="placeholder-icon-circle">
+                        <i class="material-icons" style="font-size: 2.5rem; color: var(--rot);">local_florist</i>
+                    </div>
+                    <h4>Details & Atmosphäre</h4>
+                    <p>Liebevolle Details und Dekorationen, die unseren Wersetiger ausmachen.</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SEKTION 1: Speisen & Getränke -->
+        <section id="speisen-getraenke">
+            <h2>Speisen & Getränke</h2>
+            <p>Unsere aktuelle Auswahl:</p>
+
+            <!-- Collapsible Allergen Information -->
+            <details
+                style="margin: 20px 0; border: 1px solid #ddd; border-radius: 4px; padding: 10px; background-color: #f9f9f9;">
+                <summary
+                    style="cursor: pointer; font-weight: bold; color: var(--dunkelblau); padding: 5px; user-select: none;">
+                    <i class="material-icons" style="font-size: 1rem; vertical-align: middle;">info</i>
+                    Allergen-Hinweise anzeigen
+                </summary>
+                <div id="allergen-info" style="padding: 15px 10px 5px 10px; font-size: 0.9rem; line-height: 1.6;">
+                    <!-- Will be filled by JavaScript -->
+                </div>
+            </details>
+
+
+            <!-- Two-Column Layout Container -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 30px 0;">
+
+                <!-- Left Column: Food Menu Section -->
+                <div>
+                    <h3
+                        style="color: var(--dunkelblau); border-bottom: 3px solid var(--orange); padding-bottom: 0.75rem; margin-bottom: 1.5rem; font-size: 1.8rem;">
+                        <i class="material-icons"
+                            style="font-size: 1.8rem; vertical-align: middle; color: var(--orange);">restaurant</i>
+                        Speisen
+                    </h3>
+                    <div id="menu-categories" style="display: grid; gap: 1rem;">
+                        <!-- Will be filled dynamically from daten.js -->
+                    </div>
+                </div>
+
+                <!-- Right Column: Drinks Menu Section -->
+                <div>
+                    <h3
+                        style="color: var(--dunkelblau); border-bottom: 3px solid var(--blau); padding-bottom: 0.75rem; margin-bottom: 1.5rem; font-size: 1.8rem;">
+                        <i class="material-icons"
+                            style="font-size: 1.8rem; vertical-align: middle; color: var(--blau);">local_bar</i>
+                        Getränke
+                    </h3>
+                    <div id="drinks-categories" style="display: grid; gap: 1rem;">
+                        <!-- Will be filled dynamically from daten.js -->
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SEKTION 2: Öffnungszeiten & Reservierung -->
+        <section id="oeffnungszeiten">
+            <h2>Öffnungszeiten & Reservierung</h2>
+
+            <h3>Öffnungszeiten</h3>
+            <ul id="oeffnungszeiten-liste">
+                <!-- Wird aus daten.js gefüllt -->
+            </ul>
+
+            <h3>Reservierung</h3>
+            <p>Wählen Sie Ihren gewünschten Termin im Kalender aus oder nutzen Sie direkt den E-Mail-Link.</p>
+
+
+
+            <!-- Kalender & Reservierungsformular -->
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    <button id="prevMonth"><i class="material-icons">chevron_left</i></button>
+                    <span id="currentMonthYear" style="font-weight: bold;"></span>
+                    <button id="nextMonth"><i class="material-icons">chevron_right</i></button>
+                </div>
+                <div class="calendar-grid" id="calendarGrid">
+                    <!-- Days will be injected here -->
+                </div>
+            </div>
+
+            <div
+                style="background-color: #fff3cd; border-left: 4px solid var(--orange); padding: 12px; margin: 15px 0; border-radius: 4px; font-size: 0.9rem;">
+                <p style="margin: 0 0 8px 0; font-weight: bold; color: var(--dunkelblau);">
+                    <i class="material-icons" style="font-size: 1rem; vertical-align: middle;">info</i> Wichtige
+                    Hinweise:
+                </p>
+                <ul style="margin: 0; padding-left: 20px;">
+                    <li>Dies ist eine <strong>unverbindliche Anfrage</strong>, die von uns schnellstmöglich
+                        beantwortet wird.</li>
+                    <li>Ihre Reservierung ist erst nach unserer <strong>Bestätigung</strong> gültig.</li>
+                    <li>Anfragen für den <strong>gleichen Tag</strong> können möglicherweise nicht mehr
+                        beantwortet werden.</li>
+                </ul>
+            </div>
+
+            <div id="reservationForm" class="reservation-form">
+                <button type="button" class="close-form-btn" onclick="closeForm()" title="Schließen"><i
+                        class="material-icons">close</i></button>
+                <h3 style="margin-top: 0;">Reservierungsanfrage</h3>
+                <form id="resForm" onsubmit="sendReservation(event)">
+                    <p>Gewähltes Datum: <strong><span id="selectedDateDisplay"></span></strong> <span
+                            id="openingTimeDisplay" style="color: var(--blau); font-size: 0.9rem;"></span></p>
+                    <input type="hidden" id="selectedDate" name="selectedDate">
+
+                    <div class="form-group">
+                        <label for="resTime">Uhrzeit:</label>
+                        <select id="resTime" required>
+                            <option value="">Bitte wählen</option>
+                            <option value="17:00">17:00</option>
+                            <option value="17:30">17:30</option>
+                            <option value="18:00">18:00</option>
+                            <option value="18:30">18:30</option>
+                            <option value="19:00">19:00</option>
+                            <option value="19:30">19:30</option>
+                            <option value="20:00">20:00</option>
+                            <option value="20:30">20:30</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="resPersons">Anzahl Personen:</label>
+                        <input type="number" id="resPersons" min="1" placeholder="z.B. 2" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="resName">Ihr Name:</label>
+                        <input type="text" id="resName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="resPhone">Telefonnummer (optional):</label>
+                        <input type="tel" id="resPhone" inputmode="numeric" pattern="[0-9]*">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="resComments">Anmerkungen / Fragen (optional):</label>
+                        <textarea id="resComments" rows="3" placeholder="z.B. Hund, Kinderstuhl benötigt..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-primary" style="border: none; cursor: pointer; font-size: 1rem;">
+                        <i class="material-icons">send</i> Reservierung anfragen (Mail öffnen)
+                    </button>
+                </form>
+            </div>
+
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem;">
+                <a href="mailto:wersetiger@t-online.de?subject=Reservierungsanfrage" class="btn-primary" target="_blank"
+                    style="flex: 1; align-items:center; justify-content:center;">
+                    <i class="material-icons">email</i>
+                    Individuelle E-Mail verfassen
+                </a>
+                <a href="tel:+49251381183" class="btn-primary"
+                    style="flex: 1; background-color: white; color: var(--dunkelblau); border: 2px solid var(--dunkelblau); align-items:center; justify-content:center;">
+                    <i class="material-icons">phone</i>
+                    Telefonisch reservieren
+                </a>
+            </div>
+
+            <p><strong>Essentielle Informationen, die wir benötigen:</strong> Name, Datum, Uhrzeit und Personenanzahl.
+            </p>
+        </section>
+
+        <!-- SEKTION 3: So finden Sie uns -->
+        <section id="anfahrt">
+            <h2>So finden Sie uns</h2>
+
+
+            <div class="anfahrt-grid">
+                <!-- Linke Spalte: Karte -->
+                <div class="map-container">
+                    <!-- Privacy-friendly Placeholder -->
+                    <div id="map-placeholder"
+                        style="width: 100%; height: 350px; background-color: #f0f0f0; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; border-radius: 8px;">
+                        <i class="material-icons" style="font-size: 3rem; color: #ccc;">map</i>
+                        <p style="margin: 10px 0; color: #555;">Klicken, um die Karte zu laden.</p>
+                        <p style="font-size: 0.8rem; color: #777; max-width: 80%;">Mit dem Laden der Karte akzeptieren
+                            Sie die Datenschutzbestimmungen von Google Maps.</p>
+                        <button onclick="loadMap()" class="btn-primary"
+                            style="font-size: 0.9rem; padding: 8px 16px; margin-top: 10px; cursor: pointer;">
+                            Karte laden
+                        </button>
+                    </div>
+
+                    <div style="margin-top: 10px; text-align: right;">
+                        <a href="https://www.google.com/maps/search/?api=1&query=Gastst%C3%A4tte+Wersetiger+Laerer+Werseufer+7+48157+M%C3%BCnster"
+                            target="_blank" class="btn-primary" style="font-size: 0.9rem;">
+                            <i class="material-icons">launch</i>
+                            In Google Maps öffnen
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Rechte Spalte: Infos -->
+                <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+
+                    <div class="anfahrt-info-card">
+                        <h4><i class="material-icons">location_on</i> Adresse</h4>
+                        <p>
+                            <strong>Gaststätte Wersetiger</strong><br>
+                            Laerer Werseufer 7<br>
+                            48157 Münster
+                        </p>
+                    </div>
+
+                    <div class="anfahrt-info-card">
+                        <h4><i class="material-icons">directions_bus</i> Öffentliche Verkehrsmittel</h4>
+                        <p>
+                            Busverbindung vom Hauptbahnhof mit der Linie R22/32 bis Haltestelle “Freibad Stapelskotten”
+                            direkt am Campingplatz Münster.<br>
+                            Von dort sind es nur ca. 2 Gehminuten bis zu uns.
+                        </p>
+                    </div>
+
+                    <div class="anfahrt-info-card">
+                        <h4><i class="material-icons">local_parking</i> Parkmöglichkeiten</h4>
+                        <p>
+                            Für unsere Gäste stehen zwei großzügige Parkplätze bereit, sodass Sie jederzeit bequem und
+                            stressfrei parken können.
+                        </p>
+                    </div>
+
+                    <div class="anfahrt-info-card">
+                        <h4><i class="material-icons">accessible</i> Barrierefreiheit</h4>
+                        <p>
+                            Unsere Gaststätte ist ebenerdig und barrierefrei zugänglich. Eine behindertengerechte
+                            Toilette
+                            ist vorhanden.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Alte Anfahrtsbeschreibung (gekürzt/entfernt, da nun obsolet oder integriert) -->
+        </section>
+
+        <!-- SEKTION 4: Impressum -->
+        <section id="impressum">
+            <h2>Impressum & Rechtliches</h2>
+
+            <div class="impressum-container">
+                <!-- Karte 1: Kontakt & Verantwortlichkeit -->
+                <div class="impressum-card">
+                    <h3>Verantwortlich</h3>
+                    <p style="margin-bottom: 1rem;">Verantwortlich für den Webauftritt ist die:</p>
+
+                    <h4 style="font-size: 1.2rem; color: var(--dunkelblau);">Gaststätte Wersetiger</h4>
+                    <p>Laerer Werseufer 7<br>48157 Münster</p>
+
+                    <div class="contact-info" style="margin-top: 1.5rem;">
+                        <p><i class="material-icons">person</i> <span><strong>Inhaber:</strong> Thomas Sieg</span></p>
+                        <p><i class="material-icons">phone</i> <span><strong>Telefon:</strong> +49 251 381183</span></p>
+                        <p><i class="material-icons">email</i> <span><strong>E-Mail:</strong> <a
+                                    href="mailto:wersetiger@t-online.de">wersetiger@t-online.de</a></span></p>
+                    </div>
+                </div>
+
+                <!-- Karte 2: Rechtliche Angaben -->
+                <div class="impressum-card">
+                    <h3>Rechtliche Angaben</h3>
+                    <p><strong>Zuständige Aufsichtsbehörde:</strong><br>Gewerbeamt Stadt Münster</p>
+
+                    <div style="margin-top: 1.5rem;">
+                        <p><strong>Umsatzsteuer-Identifikationsnummer</strong><br>gemäß § 27 a Umsatzsteuergesetz:</p>
+                        <p style="font-weight: bold; color: var(--dunkelblau); font-size: 1.1rem;">DE 336/5194/0760</p>
+                    </div>
+
+                    <div class="legal-notice"
+                        style="border-left: 3px solid var(--rot); padding-left: 10px; margin-top: 2rem;">
+                        <p><strong>Haftungshinweis:</strong> Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir
+                            keine Haftung für die Inhalte externer Links.</p>
+                        <p>Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Haftungsausschluss (Breit unter den Karten) -->
+            <div class="impressum-card" style="margin-top: 2rem; border-top-color: var(--dunkelblau);">
+                <h3>Haftungsausschluss</h3>
+                <p class="disclaimer-text">
+                    Die Gaststätte Wersetiger übernimmt keine Haftung oder Garantie für die Aktualität, Korrektheit,
+                    Vollständigkeit der zur Verfügung gestellten Informationen. Des weiteren übernimmt die Gaststätte
+                    Wersetiger keine Gewähr für Verluste, die durch die Verwendung oder Verteilung dieser Informationen
+                    verursacht oder mit der Verteilung/Nutzung dieser Informationen im Zusammenhang stehen. Die
+                    Gaststätte Wersetiger behält sich das Recht vor, die bereitgestellten Informationen jederzeit zu
+                    ergänzen oder zu ändern. Der Inhalt dieser Webseiten darf nicht zu kommerziellen Zwecken kopiert,
+                    verbreitet, verändert oder Dritten zugänglich gemacht werden. Alle innerhalb des Internetangebots
+                    genannten ggf. durch Dritte geschützten Marken- und Warenzeichen unterliegen uneingeschränkt den
+                    Bestimmungen des jeweils gültigen Kennzeichnungsrechtes und den Besitzrechten der jeweiligen
+                    eingetragenen Eigentümer.
+                </p>
+            </div>
+        </section>
+        </section>
+    </main>
+
+    <div id="cookieBanner">
+        <p>
+            Wir nutzen externe Dienste (<strong>Google Maps</strong>), um Ihnen interaktive Karten anzuzeigen.
+            Hierbei werden Daten (z.B. Ihre IP-Adresse) an Google übertragen.
+            Sie können dem hier zustimmen oder die Karte später manuell per Klick aktivieren.
+        </p>
+        <div class="buttons">
+            <button class="btn-decline" onclick="handleCookieConsent(false)">Nur Essentielle</button>
+            <button class="btn-accept" onclick="handleCookieConsent(true)">Akzeptieren & Karte laden</button>
+        </div>
+    </div>
+
+    <button id="backToTop" title="Nach oben" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+        <i class="material-icons">arrow_upward</i>
+    </button>
+
+    <div class="footer-wrapper">
+        <footer>
+            <div class="container">
+                <p>&copy; 2025 Gaststätte Wersetiger. Alle Rechte vorbehalten.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- JavaScript für die Navigation zwischen den Sektionen (Single Page App Simulation) -->
+    <script>
+        function showSection(event, sectionId) {
+            // Prevent default anchor jump behavior
+            if (event) {
+                event.preventDefault();
+            }
+
+            // Alle Inhalts-Sektionen (main section) ausblenden (Klassen entfernen für Transition)
+            const sections = document.querySelectorAll('main section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+                // Timeout to set display none logic handled by CSS via active class
+            });
+
+            // Die Hero Section (Startseite) ausblenden, wenn eine andere Sektion gewählt wird
+            const homeSection = document.getElementById('home');
+            if (sectionId !== 'home') {
+                homeSection.classList.add('hidden');
+            } else {
+                homeSection.classList.remove('hidden');
+            }
+
+            // Die gewünschte Sektion anzeigen (falls es eine Inhaltssektion ist)
+            const activeSection = document.getElementById(sectionId);
+            if (activeSection && sectionId !== 'home') {
+                activeSection.classList.add('active');
+            }
+
+            // Spezielle Logik für Startseite-Bilder (soll sichtbar sein wenn 'home')
+            const homeImages = document.getElementById('startseite-bilder');
+            if (sectionId === 'home') {
+                if (homeImages) homeImages.classList.add('active');
+            }
+
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Beim Laden der Seite wird standardmäßig die "home" (Hero Image) Sektion angezeigt.
+
+        // --- INHALTE AUS daten.js LADEN ---
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // Check Live Status
+            checkLiveStatus();
+            // Optional: Re-check every minute
+            setInterval(checkLiveStatus, 60000);
+
+            // Back to Top Logic
+            window.addEventListener('scroll', () => {
+                const btn = document.getElementById('backToTop');
+                if (window.scrollY > 300) {
+                    btn.style.display = 'flex';
+                } else {
+                    btn.style.display = 'none';
+                }
+            });
+
+
+            // 1. Speisekarte füllen
+            if (typeof webseitenInhalt !== 'undefined' && webseitenInhalt.speisekarte) {
+                // Render allergen information (simplified, no header since it's in collapsible)
+                const allergenInfo = document.getElementById('allergen-info');
+                if (allergenInfo && webseitenInhalt.speisekarte.allergenHinweis) {
+                    allergenInfo.innerHTML = `
+                        <p style="margin: 0 0 8px 0; line-height: 1.6; color: #555;">${webseitenInhalt.speisekarte.allergenHinweis}</p>
+                        <p style="margin: 0; font-style: italic; color: #888; font-size: 0.85rem;">${webseitenInhalt.speisekarte.allergenZusatz}</p>
+                    `;
+                }
+
+                // Render menu categories with collapsible categories
+                const menuContainer = document.getElementById('menu-categories');
+                if (menuContainer && webseitenInhalt.speisekarte.kategorien) {
+                    // Icon mapping for food categories
+                    const foodIcons = {
+                        'Suppen': 'soup_kitchen',
+                        'Salate': 'eco',
+                        'Schnitzel': 'restaurant_menu',
+                        'Steakgerichte': 'restaurant',
+                        'Geflügel und Hausspezialitäten': 'star',
+                        'Fischgerichte': 'set_meal',
+                        'Tellergerichte': 'room_service',
+                        'Vegetarisch': 'spa',
+                        'Für unsere kleinen Gäste': 'child_care',
+                        'Beilagen': 'rice_bowl',
+                        'Eiskarte': 'icecream'
+                    };
+
+                    webseitenInhalt.speisekarte.kategorien.forEach(kategorie => {
+                        // Create collapsible category details element
+                        const categoryDetails = document.createElement('details');
+                        categoryDetails.open = false; // Collapsed by default
+                        categoryDetails.style.backgroundColor = '#fff';
+                        categoryDetails.style.border = '1px solid #e0e0e0';
+                        categoryDetails.style.borderRadius = '8px';
+                        categoryDetails.style.padding = '1rem';
+                        categoryDetails.style.boxShadow = '0 2px 4px rgba(0,0,0,0.05)';
+                        categoryDetails.style.transition = 'box-shadow 0.3s ease';
+
+                        // Add hover effect
+                        categoryDetails.onmouseenter = function () {
+                            this.style.boxShadow = '0 4px 8px rgba(0,0,0,0.1)';
+                        };
+                        categoryDetails.onmouseleave = function () {
+                            this.style.boxShadow = '0 2px 4px rgba(0,0,0,0.05)';
+                        };
+
+                        // Category summary (clickable header) with icon
+                        const categorySummary = document.createElement('summary');
+                        const icon = foodIcons[kategorie.name] || 'restaurant';
+                        categorySummary.innerHTML = `<i class="material-icons" style="font-size: 1.2rem; vertical-align: middle; margin-right: 8px; color: var(--orange);">${icon}</i>${kategorie.name}`;
+                        categorySummary.style.cursor = 'pointer';
+                        categorySummary.style.fontWeight = 'bold';
+                        categorySummary.style.color = 'var(--dunkelblau)';
+                        categorySummary.style.fontSize = '1.1rem';
+                        categorySummary.style.padding = '0.5rem';
+                        categorySummary.style.userSelect = 'none';
+                        categorySummary.style.listStyle = 'none';
+                        categoryDetails.appendChild(categorySummary);
+
+                        // Dishes container with improved spacing
+                        const dishesContainer = document.createElement('div');
+                        dishesContainer.style.display = 'grid';
+                        dishesContainer.style.gap = '0.75rem';
+                        dishesContainer.style.paddingTop = '1rem';
+
+                        kategorie.gerichte.forEach(gericht => {
+                            const dishDiv = document.createElement('div');
+                            dishDiv.className = 'menu-item';
+                            dishDiv.style.padding = '0.5rem 0';
+                            dishDiv.style.borderBottom = '1px dashed #e8e8e8';
+
+                            const nameSpan = document.createElement('span');
+                            nameSpan.style.flex = '1';
+                            nameSpan.style.paddingRight = '1rem';
+                            nameSpan.textContent = gericht.name;
+                            if (gericht.allergene && gericht.allergene.trim() !== '') {
+                                nameSpan.innerHTML = `${gericht.name} <sup style="color: var(--blau); font-size: 0.7em; font-weight: 600;">${gericht.allergene}</sup>`;
+                            }
+
+                            const priceSpan = document.createElement('span');
+                            priceSpan.className = 'price';
+                            priceSpan.style.fontWeight = '700';
+                            priceSpan.style.color = 'var(--dunkelblau)';
+                            priceSpan.style.whiteSpace = 'nowrap';
+                            priceSpan.textContent = gericht.preis;
+
+                            dishDiv.appendChild(nameSpan);
+                            dishDiv.appendChild(priceSpan);
+                            dishesContainer.appendChild(dishDiv);
+                        });
+
+                        // Remove border from last item
+                        const lastDish = dishesContainer.lastElementChild;
+                        if (lastDish) {
+                            lastDish.style.borderBottom = 'none';
+                        }
+
+                        categoryDetails.appendChild(dishesContainer);
+
+                        // Add zusatzinfo if exists (with improved styling)
+                        if (kategorie.zusatzinfo) {
+                            const infoDiv = document.createElement('div');
+                            infoDiv.style.marginTop = '1.25rem';
+                            infoDiv.style.padding = '12px 15px';
+                            infoDiv.style.backgroundColor = '#f0f8ff';
+                            infoDiv.style.borderLeft = '4px solid var(--blau)';
+                            infoDiv.style.borderRadius = '4px';
+                            infoDiv.style.fontSize = '0.875rem';
+                            infoDiv.style.fontStyle = 'italic';
+                            infoDiv.style.color = '#555';
+                            infoDiv.innerHTML = `<i class="material-icons" style="font-size: 0.9rem; vertical-align: middle; margin-right: 5px;">info_outline</i>${kategorie.zusatzinfo}`;
+                            categoryDetails.appendChild(infoDiv);
+                        }
+
+                        menuContainer.appendChild(categoryDetails);
+                    });
+                }
+            }
+
+
+            // 1b. Getränkekarte füllen
+            if (typeof webseitenInhalt !== 'undefined' && webseitenInhalt.getraenkekarte) {
+                const drinksContainer = document.getElementById('drinks-categories');
+                if (drinksContainer && webseitenInhalt.getraenkekarte.kategorien) {
+                    // Icon mapping for drinks categories
+                    const drinksIcons = {
+                        'Warme Getränke': 'local_cafe',
+                        'Alkoholfreie Getränke': 'local_drink',
+                        'Biere': 'sports_bar',
+                        'Spirituosen und Liköre': 'liquor',
+                        'Weinbrand und Whisky': 'liquor',
+                        'Weinkarte': 'wine_bar',
+                        'Longdrinks': 'nightlife'
+                    };
+
+                    webseitenInhalt.getraenkekarte.kategorien.forEach(kategorie => {
+                        // Create collapsible category details element
+                        const categoryDetails = document.createElement('details');
+                        categoryDetails.open = false; // Collapsed by default
+                        categoryDetails.style.backgroundColor = '#fff';
+                        categoryDetails.style.border = '1px solid #e0e0e0';
+                        categoryDetails.style.borderRadius = '8px';
+                        categoryDetails.style.padding = '1rem';
+                        categoryDetails.style.boxShadow = '0 2px 4px rgba(0,0,0,0.05)';
+                        categoryDetails.style.transition = 'box-shadow 0.3s ease';
+
+                        // Add hover effect
+                        categoryDetails.onmouseenter = function () {
+                            this.style.boxShadow = '0 4px 8px rgba(0,0,0,0.1)';
+                        };
+                        categoryDetails.onmouseleave = function () {
+                            this.style.boxShadow = '0 2px 4px rgba(0,0,0,0.05)';
+                        };
+
+                        // Category summary (clickable header) with icon
+                        const categorySummary = document.createElement('summary');
+                        const icon = drinksIcons[kategorie.name] || 'local_bar';
+                        categorySummary.innerHTML = `<i class="material-icons" style="font-size: 1.2rem; vertical-align: middle; margin-right: 8px; color: var(--blau);">${icon}</i>${kategorie.name}`;
+                        categorySummary.style.cursor = 'pointer';
+                        categorySummary.style.fontWeight = 'bold';
+                        categorySummary.style.color = 'var(--dunkelblau)';
+                        categorySummary.style.fontSize = '1.1rem';
+                        categorySummary.style.padding = '0.5rem';
+                        categorySummary.style.userSelect = 'none';
+                        categorySummary.style.listStyle = 'none';
+                        categoryDetails.appendChild(categorySummary);
+
+                        // Drinks container
+                        const drinksListContainer = document.createElement('div');
+                        drinksListContainer.style.display = 'grid';
+                        drinksListContainer.style.gap = '0.75rem';
+                        drinksListContainer.style.paddingTop = '1rem';
+
+                        kategorie.getraenke.forEach(getraenk => {
+                            // Check if it's a subheader (like "Weißwein")
+                            if (getraenk.isHeader) {
+                                const headerDiv = document.createElement('div');
+                                headerDiv.style.fontWeight = 'bold';
+                                headerDiv.style.color = 'var(--dunkelblau)';
+                                headerDiv.style.marginTop = '15px';
+                                headerDiv.style.marginBottom = '5px';
+                                headerDiv.style.borderBottom = '2px solid var(--orange)'; // Visual separator
+                                headerDiv.style.paddingBottom = '2px';
+                                headerDiv.textContent = getraenk.name;
+                                drinksListContainer.appendChild(headerDiv);
+                                return; // Skip normal item rendering
+                            }
+
+                            const drinkDiv = document.createElement('div');
+                            drinkDiv.style.padding = '0.5rem 0';
+                            drinkDiv.style.borderBottom = '1px dashed #e8e8e8';
+
+                            // Check if drink has multiple sizes
+                            if (getraenk.groessen) {
+                                // Drink name
+                                const nameDiv = document.createElement('div');
+                                nameDiv.style.fontWeight = '600';
+                                nameDiv.style.marginBottom = '0.5rem';
+                                nameDiv.textContent = getraenk.name;
+                                drinkDiv.appendChild(nameDiv);
+
+                                // Sizes container
+                                const sizesDiv = document.createElement('div');
+                                sizesDiv.style.paddingLeft = '1rem';
+                                sizesDiv.style.display = 'grid';
+                                sizesDiv.style.gap = '0.25rem';
+
+                                getraenk.groessen.forEach(groesse => {
+                                    const sizeDiv = document.createElement('div');
+                                    sizeDiv.className = 'menu-item';
+                                    sizeDiv.style.fontSize = '0.9rem';
+                                    sizeDiv.style.borderBottom = 'none';
+
+                                    const sizeSpan = document.createElement('span');
+                                    sizeSpan.textContent = groesse.size;
+                                    sizeSpan.style.color = '#666';
+
+                                    const priceSpan = document.createElement('span');
+                                    priceSpan.className = 'price';
+                                    priceSpan.style.fontWeight = '700';
+                                    priceSpan.style.color = 'var(--dunkelblau)';
+                                    priceSpan.textContent = groesse.preis;
+
+                                    sizeDiv.appendChild(sizeSpan);
+                                    sizeDiv.appendChild(priceSpan);
+                                    sizesDiv.appendChild(sizeDiv);
+                                });
+
+                                drinkDiv.appendChild(sizesDiv);
+                            } else {
+                                // Simple drink with single price
+                                drinkDiv.className = 'menu-item';
+
+                                const nameSpan = document.createElement('span');
+                                nameSpan.style.flex = '1';
+                                nameSpan.style.paddingRight = '1rem';
+
+                                // Check if it has menge (for spirits)
+                                if (getraenk.menge) {
+                                    nameSpan.innerHTML = `${getraenk.name} <span style="color: #888; font-size: 0.85em;">(${getraenk.menge})</span>`;
+                                } else {
+                                    nameSpan.textContent = getraenk.name;
+                                }
+
+                                const priceSpan = document.createElement('span');
+                                priceSpan.className = 'price';
+                                priceSpan.style.fontWeight = '700';
+                                priceSpan.style.color = 'var(--dunkelblau)';
+                                priceSpan.style.whiteSpace = 'nowrap';
+                                priceSpan.textContent = getraenk.preis;
+
+                                drinkDiv.appendChild(nameSpan);
+                                drinkDiv.appendChild(priceSpan);
+                            }
+
+                            drinksListContainer.appendChild(drinkDiv);
+                        });
+
+                        // Remove border from last item
+                        const lastDrink = drinksListContainer.lastElementChild;
+                        if (lastDrink) {
+                            lastDrink.style.borderBottom = 'none';
+                        }
+
+                        categoryDetails.appendChild(drinksListContainer);
+                        drinksContainer.appendChild(categoryDetails);
+                    });
+                }
+            }
+
+            // 2. Öffnungszeiten füllen (Spezifische Daten)
+            const oeffnungszeitenListe = document.getElementById('oeffnungszeiten-liste');
+            if (typeof webseitenInhalt !== 'undefined' && oeffnungszeitenListe) {
+                // Clear existing content if any (though currently empty in HTML)
+                oeffnungszeitenListe.innerHTML = "";
+
+                // Group logic could be added here if data was unsorted, but assuming sorted list for now
+                // Simple list rendering based on new structure
+                let currentMonth = "";
+
+                webseitenInhalt.oeffnungszeiten.forEach(eintrag => {
+                    // Check if month header needed
+                    if (eintrag.monat !== currentMonth) {
+                        currentMonth = eintrag.monat;
+                        const monthHeader = document.createElement('h4');
+                        monthHeader.textContent = currentMonth;
+                        monthHeader.style.color = "var(--dunkelblau)";
+                        monthHeader.style.marginTop = "1rem";
+                        monthHeader.style.marginBottom = "0.5rem";
+                        monthHeader.style.borderBottom = "1px solid #ccc";
+                        oeffnungszeitenListe.appendChild(monthHeader);
+                    }
+
+                    const li = document.createElement('li');
+                    li.style.display = "flex";
+                    li.style.justifyContent = "space-between";
+                    li.style.marginBottom = "5px";
+                    li.innerHTML = `<span>${eintrag.datum}</span> <span>${eintrag.zeit}</span>`;
+                    oeffnungszeitenListe.appendChild(li);
+                });
+            }
+            // --- KALENDER LOGIK ---
+            // --- NEUE LOGIK FÜR ÖFFNUNGSZEITEN (Überschreibt alte Logik durch innerHTML="") ---
+            if (typeof webseitenInhalt !== 'undefined' && oeffnungszeitenListe) {
+                // Add scroll container class
+                oeffnungszeitenListe.classList.add('opening-hours-container');
+                oeffnungszeitenListe.style.listStyle = "none";
+                oeffnungszeitenListe.style.padding = "10px";
+
+                // Clear existing (removes the old list)
+                oeffnungszeitenListe.innerHTML = "";
+
+                // 1. Gruppieren der Daten basierend auf Monat und Jahr aus dem Datum
+                const groups = [];
+                let currentGroupKey = null;
+                let currentGroup = null;
+
+                // Hilfsfunktionen (Definiert VOR Nutzung)
+                const monatsNamen = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
+
+                function getMonthYearFromDate(dateStr) {
+                    // Erwartetes Format: "Fr, 28.11.2025"
+                    try {
+                        const parts = dateStr.split(',')[1].trim().split('.');
+                        const month = parseInt(parts[1], 10) - 1; // 0-indexed
+                        const year = parseInt(parts[2], 10);
+                        return { month, year };
+                    } catch (e) {
+                        return null;
+                    }
+                }
+
+                webseitenInhalt.oeffnungszeiten.forEach(eintrag => {
+                    const dateInfo = getMonthYearFromDate(eintrag.datum);
+                    if (dateInfo) {
+                        const groupKey = `${dateInfo.year}-${dateInfo.month}`;
+
+                        if (groupKey !== currentGroupKey) {
+                            currentGroupKey = groupKey;
+                            currentGroup = {
+                                year: dateInfo.year,
+                                month: dateInfo.month,
+                                items: []
+                            };
+                            groups.push(currentGroup);
+                        }
+                        currentGroup.items.push(eintrag);
+                    }
+                });
+
+                function generateHeaderTitle(items) {
+                    // Titel basiert jetzt auf der Gruppe (Monat Jahr), wird aber dynamisch geprüft falls gemischt (sollte hier nicht passieren durch Logik oben)
+                    // Wir nehmen einfach den ersten Eintrag der Gruppe für den Titel, da wir strikt nach Kalendermonat gruppiert haben.
+                    if (!items || items.length === 0) return "";
+                    const firstItemInfo = getMonthYearFromDate(items[0].datum);
+                    if (firstItemInfo) {
+                        return `${monatsNamen[firstItemInfo.month]} ${firstItemInfo.year}`;
+                    }
+                    return "Termine";
+                }
+
+                // 3. Rendern der Gruppen
+                const today = new Date();
+                today.setHours(0, 0, 0, 0); // Normalize to midnight
+                let hiddenCount = 0;
+
+                groups.forEach(group => {
+                    const monthWrapper = document.createElement('div');
+                    monthWrapper.style.marginBottom = "1.5rem";
+                    monthWrapper.setAttribute('data-group-id', groups.indexOf(group));
+
+                    const monthHeader = document.createElement('h4');
+                    monthHeader.className = "month-header";
+                    monthHeader.style.color = "var(--dunkelblau)";
+                    monthHeader.style.borderBottom = "2px solid var(--orange)";
+                    monthHeader.style.display = "inline-block";
+                    monthHeader.style.marginBottom = "10px";
+                    monthHeader.style.marginTop = "0";
+                    // Initial title based on group info
+                    monthHeader.textContent = `${monatsNamen[group.month]} ${group.year}`;
+
+                    const datesGrid = document.createElement('div');
+                    datesGrid.style.display = "grid";
+                    datesGrid.style.gridTemplateColumns = "repeat(auto-fill, minmax(280px, 1fr))";
+                    datesGrid.style.gap = "10px";
+
+                    let visibleInGroup = 0;
+                    // To verify if any item in group is potentially visible or if all are past
+                    let allItemsInGroupArePast = true;
+
+                    group.items.forEach(eintrag => {
+                        const dateCard = document.createElement('div');
+                        dateCard.className = "date-card";
+                        dateCard.style.background = "#fff";
+                        dateCard.style.padding = "10px";
+                        dateCard.style.borderRadius = "5px";
+                        dateCard.style.boxShadow = "0 1px 3px rgba(0,0,0,0.1)";
+                        dateCard.style.borderLeft = "4px solid var(--blau)";
+                        dateCard.style.fontSize = "0.95rem";
+                        dateCard.style.display = "flex";
+                        dateCard.style.justifyContent = "space-between";
+                        dateCard.style.alignItems = "center";
+                        dateCard.style.cursor = "default";
+
+                        dateCard.innerHTML = `<span style="font-weight:bold;">${eintrag.datum}</span> <span>${eintrag.zeit}</span>`;
+
+                        // Check if date is in past
+                        const dateInfo = getMonthYearFromDate(eintrag.datum);
+                        if (dateInfo) {
+                            const dayPart = eintrag.datum.split(',')[1].trim().split('.')[0];
+                            const entryDate = new Date(dateInfo.year, dateInfo.month, parseInt(dayPart, 10));
+
+                            // Compare date parts only (ignore time)
+                            entryDate.setHours(0, 0, 0, 0);
+
+                            if (entryDate < today) {
+                                dateCard.style.display = "none";
+                                dateCard.classList.add('past-date');
+                                dateCard.style.opacity = "0.6";
+                                dateCard.style.background = "#f5f5f5";
+                                dateCard.style.borderLeft = "4px solid #999";
+                                hiddenCount++;
+                            } else {
+                                visibleInGroup++;
+                                allItemsInGroupArePast = false;
+                            }
+                        } else {
+                            visibleInGroup++;
+                            allItemsInGroupArePast = false;
+                        }
+
+                        datesGrid.appendChild(dateCard);
+                    });
+
+                    if (allItemsInGroupArePast) {
+                        monthWrapper.style.display = "none";
+                        monthWrapper.classList.add('past-group');
+                    }
+
+                    monthWrapper.appendChild(monthHeader);
+                    monthWrapper.appendChild(datesGrid);
+                    oeffnungszeitenListe.appendChild(monthWrapper);
+                });
+
+                // Function to update headers based on visible dates (or keep them if group logic is strict)
+                function updateGroupHeaders(showPast) {
+                    // Since we group strictly by month, the header "Month Year" is always correct for the group.
+                    // usage of updateGroupHeaders might be redundant for title changing, 
+                    // but we might want to hide headers if all items are hidden and we are NOT showing past items.
+                    // (Handled by 'past-group' class logic mostly)
+
+                    groups.forEach((group, index) => {
+                        // Check if we need to dynamically adjust anything further
+                    });
+                }
+
+                // Initial header update
+                updateGroupHeaders(false);
+
+                // "Show past dates" functionality removed as per user request
+            }
+
+            initCalendar();
+        });
+
+        const monthNames = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
+        let currentDate = new Date();
+        let selectedDateObj = null;
+
+        function initCalendar() {
+            renderCalendar();
+
+            document.getElementById('prevMonth').addEventListener('click', () => {
+                currentDate.setMonth(currentDate.getMonth() - 1);
+                renderCalendar();
+            });
+
+            document.getElementById('nextMonth').addEventListener('click', () => {
+                currentDate.setMonth(currentDate.getMonth() + 1);
+                renderCalendar();
+            });
+        }
+
+        function renderCalendar() {
+            const grid = document.getElementById('calendarGrid');
+            const display = document.getElementById('currentMonthYear');
+            grid.innerHTML = '';
+
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+
+            display.textContent = `${monthNames[month]} ${year}`;
+
+            // Day Headers
+            const days = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'];
+            days.forEach(day => {
+                const div = document.createElement('div');
+                div.className = 'calendar-day-header';
+                div.textContent = day;
+                grid.appendChild(div);
+            });
+
+            // First day of month (0 = Sunday, 1 = Monday ...)
+            const firstDay = new Date(year, month, 1).getDay(); // Sunday is 0
+            // Adjust to Monday start (Mon=0, Sun=6)
+            const startDayIndex = (firstDay === 0 ? 6 : firstDay - 1);
+
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+            // Build a set of valid opening dates for quick lookup
+            const validDates = new Set();
+            if (typeof webseitenInhalt !== 'undefined' && webseitenInhalt.oeffnungszeiten) {
+                webseitenInhalt.oeffnungszeiten.forEach(eintrag => {
+                    // Parse date from "Fr, 28.11.2025" format
+                    try {
+                        const dateParts = eintrag.datum.split(',')[1].trim().split('.');
+                        const day = parseInt(dateParts[0], 10);
+                        const monthNum = parseInt(dateParts[1], 10) - 1; // 0-indexed
+                        const yearNum = parseInt(dateParts[2], 10);
+
+                        // Create a date key for comparison
+                        const dateKey = `${yearNum}-${monthNum}-${day}`;
+                        validDates.add(dateKey);
+                    } catch (e) {
+                        console.error('Error parsing date:', eintrag.datum);
+                    }
+                });
+            }
+
+            // Padding for previous month
+            for (let i = 0; i < startDayIndex; i++) {
+                const div = document.createElement('div');
+                grid.appendChild(div);
+            }
+
+            // Days
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            for (let i = 1; i <= daysInMonth; i++) {
+                const date = new Date(year, month, i);
+                const dayDiv = document.createElement('div');
+                dayDiv.className = 'calendar-day';
+                dayDiv.textContent = i;
+
+                // Check if this date is in our valid opening dates
+                const dateKey = `${year}-${month}-${i}`;
+                const isOpenDay = validDates.has(dateKey);
+
+                // Disable past dates AND non-open days
+                if (date < today || !isOpenDay) {
+                    dayDiv.classList.add('disabled');
+                    if (!isOpenDay) {
+                        dayDiv.style.opacity = "0.5"; // Dim non-open days more
+                    }
+                } else {
+                    dayDiv.classList.add('open-day');
+                    dayDiv.onclick = () => selectDate(i, month, year);
+                }
+
+                // Highlight today
+                if (date.getTime() === today.getTime()) {
+                    dayDiv.classList.add('today');
+                }
+
+                // Highlight selected
+                if (selectedDateObj && date.getTime() === selectedDateObj.getTime()) {
+                    dayDiv.classList.add('selected');
+                }
+
+                grid.appendChild(dayDiv);
+            }
+        }
+
+        function selectDate(day, month, year) {
+            const newDate = new Date(year, month, day);
+            const formContainer = document.getElementById('reservationForm');
+
+            // Check if same date is clicked
+            if (selectedDateObj && newDate.getTime() === selectedDateObj.getTime()) {
+                selectedDateObj = null; // Deselect
+                formContainer.style.display = 'none';
+                renderCalendar();
+                return;
+            }
+
+            selectedDateObj = newDate;
+            renderCalendar(); // Re-render to show selection
+
+            // Show Form
+            formContainer.style.display = 'block';
+
+            // Format Date for display
+            const dateString = selectedDateObj.toLocaleDateString('de-DE', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            document.getElementById('selectedDateDisplay').textContent = dateString;
+            document.getElementById('selectedDate').value = dateString;
+
+            // Find and display opening time for this date
+            let openingTime = '';
+            let rawTimeStr = '';
+
+            if (typeof webseitenInhalt !== 'undefined' && webseitenInhalt.oeffnungszeiten) {
+                // Format day and month with leading zeros for comparison
+                const dayStr = day.toString().padStart(2, '0');
+                const monthStr = (month + 1).toString().padStart(2, '0');
+                const selectedDateStr = `${dayStr}.${monthStr}.${year}`;
+
+                const matchingEntry = webseitenInhalt.oeffnungszeiten.find(eintrag => {
+                    // Extract date from "Fr, 28.11.2025" or "So, 01.12.2025" formats
+                    // Split by comma to get the date part
+                    const parts = eintrag.datum.split(',');
+                    if (parts.length > 1) {
+                        return parts[1].trim() === selectedDateStr;
+                    }
+                    return false;
+                });
+
+                if (matchingEntry) {
+                    openingTime = `(${matchingEntry.zeit})`;
+                    rawTimeStr = matchingEntry.zeit;
+                }
+            }
+
+            document.getElementById('openingTimeDisplay').textContent = openingTime;
+
+            // Scroll to form
+            formContainer.scrollIntoView({ behavior: 'smooth' });
+
+            // Logically update time options based on the time string from data
+            updateTimeOptions(rawTimeStr);
+        }
+
+        function updateTimeOptions(timeStr) {
+            const timeSelect = document.getElementById('resTime');
+            timeSelect.innerHTML = '<option value="">Bitte wählen</option>';
+
+            const slots = [];
+
+            // Check content of timeStr to decide which slots to show
+            if (timeStr && timeStr.includes("12.00")) {
+                // "ab 12.00 Uhr" -> Lunch and Dinner
+                // Lunch: 12:00 - 14:00
+                slots.push("12:00", "12:30", "13:00", "13:30");
+                // Dinner: 17:00 - 19:30
+                slots.push("17:00", "17:30", "18:00", "18:30", "19:00", "19:30");
+            } else if (timeStr && timeStr.includes("17.00")) {
+                // "ab 17.00 Uhr" -> Dinner only
+                // Dinner: 17:00 - 19:30
+                slots.push("17:00", "17:30", "18:00", "18:30", "19:00", "19:30");
+            } else {
+                // Fallback / Default (e.g. if time string is missing or different)
+                // Defaulting to standard evening times
+                slots.push("17:00", "17:30", "18:00", "18:30", "19:00", "19:30");
+            }
+
+            slots.forEach(time => {
+                const opt = document.createElement('option');
+                opt.value = time;
+                opt.textContent = time;
+                timeSelect.appendChild(opt);
+            });
+        }
+
+        function sendReservation(e) {
+            e.preventDefault();
+
+            const date = document.getElementById('selectedDate').value;
+            const time = document.getElementById('resTime').value;
+            const persons = document.getElementById('resPersons').value;
+            const name = document.getElementById('resName').value;
+            const phone = document.getElementById('resPhone').value;
+            const comments = document.getElementById('resComments').value;
+
+            const subject = encodeURIComponent(`Reservierungsanfrage: ${date}`);
+
+            let bodyText = `Hallo Team Gaststätte Wersetiger,\n\nich möchte gerne eine Reservierung anfragen:\n\nDatum: ${date}\nUhrzeit: ${time}\nPersonen: ${persons}\nName: ${name}\nTelefon: ${phone}`;
+
+            if (comments && comments.trim() !== "") {
+                bodyText += `\nAnmerkungen: ${comments}`;
+            }
+
+            bodyText += `\n\nBitte bestätigen Sie mir diese Anfrage.\n\nMit freundlichen Grüßen,\n${name}`;
+
+            const body = encodeURIComponent(bodyText);
+
+            window.location.href = `mailto:wersetiger@t-online.de?subject=${subject}&body=${body}`;
+        }
+
+        function closeForm() {
+            const formContainer = document.getElementById('reservationForm');
+            formContainer.style.display = 'none';
+            selectedDateObj = null; // Deselect date
+            renderCalendar(); // Update calendar UI (remove selection highlight)
+        }
+
+        // Privacy: Load Google Maps only on consent
+        function loadMap() {
+            // Check global consent status
+            const consent = localStorage.getItem('cookieConsent');
+
+            if (consent === 'true') {
+                // Already consented, load map directly
+                renderMapIframe();
+            } else {
+                // Not yet consented. 
+                // Since user CLICKED "In Google Maps öffnen/laden" (via button call which invokes this function),
+                // we interpret this as explicit consent for this session/future.
+                // We update consent and load map.
+                if (confirm("Durch das Laden der Karte stimmen Sie der Datenübertragung an Google Maps zu. Fortfahren?")) {
+                    handleCookieConsent(true);
+                }
+            }
+        }
+
+        function renderMapIframe() {
+            const container = document.getElementById('map-placeholder').parentNode;
+            container.innerHTML = `<iframe
+                            src="https://maps.google.com/maps?q=Gastst%C3%A4tte+Wersetiger,+Laerer+Werseufer+7,+48157+M%C3%BCnster&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                            allowfullscreen="" loading="lazy" style="width: 100%; height: 350px; border: 0; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);"></iframe>
+                        <div style="margin-top: 10px; text-align: right;">
+                            <a href="https://www.google.com/maps/search/?api=1&query=Gastst%C3%A4tte+Wersetiger+Laerer+Werseufer+7+48157+M%C3%BCnster"
+                                target="_blank" class="btn-primary" style="font-size: 0.9rem;">
+                                <i class="material-icons">launch</i>
+                                In Google Maps öffnen
+                            </a>
+                        </div>`;
+        }
+
+        // --- COOKIE BANNER LOGIC ---
+        function checkCookieConsent() {
+            const consent = localStorage.getItem('cookieConsent');
+            if (consent === null) {
+                // Show banner if no choice made
+                document.getElementById('cookieBanner').style.display = 'flex';
+            } else if (consent === 'true') {
+                // Auto-load map if previously accepted?
+                // Since we have a placeholder "Laden", we can decide to auto-replace it here
+                // if users prefer instant loading.
+                // Let's auto-load it for convenience if they already said YES.
+                // We look for the placeholder div
+                const placeholder = document.getElementById('map-placeholder');
+                if (placeholder) {
+                    renderMapIframe();
+                }
+            }
+        }
+
+        function handleCookieConsent(accepted) {
+            localStorage.setItem('cookieConsent', accepted);
+            document.getElementById('cookieBanner').style.display = 'none';
+            if (accepted) {
+                // Check if map is not loaded yet
+                if (!document.querySelector('iframe[src*="maps.google.com"]')) {
+                    renderMapIframe();
+                }
+            }
+        }
+
+        // Initialize Cookie Check
+        document.addEventListener('DOMContentLoaded', () => {
+            checkCookieConsent();
+        });
+
+        // --- SIMPLE LIVE STATUS ---
+        function checkLiveStatus() {
+            const statusContainer = document.getElementById('liveStatusContainer');
+            const icon = document.getElementById('statusIcon');
+            const text = document.getElementById('statusText');
+
+            const now = new Date();
+            // Normalize current day to midnight to match data format
+            const todayStr = `${now.getDate().toString().padStart(2, '0')}.${(now.getMonth() + 1).toString().padStart(2, '0')}.${now.getFullYear()}`;
+
+            // Check if today is an open day in daten.js
+            let isOpenDay = false;
+            let openTimeStr = "";
+
+            if (typeof webseitenInhalt !== 'undefined' && webseitenInhalt.oeffnungszeiten) {
+                const entry = webseitenInhalt.oeffnungszeiten.find(e => {
+                    // e.datum is "Fr, 28.11.2025"
+                    return e.datum.includes(todayStr);
+                });
+                if (entry) {
+                    isOpenDay = true;
+                    openTimeStr = entry.zeit; // e.g. "ab 17.00 Uhr"
+                }
+            }
+
+            if (isOpenDay) {
+                // If we want to be very precise about "Is it actually 17:00 yet?", we parse openTimeStr.
+                // Request said: "Varied closing times", so just Open or Closed based on start time is safer?
+                // Or "Geöffnet ab 17:00" if before, "Geöffnet" if during?
+                // Let's do simple: If today is open day -> "Heute geöffnet [zeit]"
+
+                // Parse start hour
+                let startHour = 17; // default
+                if (openTimeStr.includes("12.00")) startHour = 12;
+                else if (openTimeStr.includes("18.00")) startHour = 18;
+
+                // If now is before startHour, show "Opens at X"
+                if (now.getHours() < startHour) {
+                    statusContainer.className = "live-status closed";
+                    icon.textContent = "⏳";
+                    text.textContent = `Öffnet heute ${openTimeStr}`; // "Öffnet heute ab 17.00 Uhr"
+                } else {
+                    // We assume open until late (no fixed closing time), so if it started, it's open.
+                    // Maybe cutoff at 2AM next day? Simple logic: It's "today" evening.
+                    statusContainer.className = "live-status open";
+                    icon.textContent = "🟢";
+                    text.textContent = "Geöffnet";
+                }
+            } else {
+                statusContainer.className = "live-status closed";
+                icon.textContent = "🔴";
+                text.textContent = "Heute geschlossen";
+            }
+        }
+    </script>
+</body>
+
+</html>
