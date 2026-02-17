@@ -306,8 +306,9 @@ const webseitenInhalt = {
         { datum: "Fr, 27.03.2026", zeit: "ab 17.00 Uhr" },
         { datum: "Sa, 28.03.2026", zeit: "ab 17.00 Uhr" },
         { datum: "So, 29.03.2026", zeit: "ab 12.00 Uhr" },
+	
 	{ datum: "Mo, 30.03.2026", zeit: "ab 17.00 Uhr" },
-        { datum: "Di, 31.03.2026", zeit: "ab 17.00 Uhr" },
+	{ datum: "Di, 31.03.2026", zeit: "ab 17.00 Uhr" },
         { datum: "Mi, 01.04.2026", zeit: "ab 17.00 Uhr" }
 
     ],
