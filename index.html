@@ -748,6 +748,97 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
+
+        #lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 3000;
+        }
+
+        #lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            border: 3px solid white;
+            border-radius: 4px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+        }
+
+        #lightbox .close-lightbox {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        /* Slider Styles */
+        .slider-container {
+            position: relative;
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            background-color: #000;
+        }
+
+        .slider-container .slide {
+            height: 100%;
+            position: relative;
+        }
+
+        .slider-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.4);
+            color: white;
+            border: none;
+            padding: 10px 5px;
+            cursor: pointer;
+            z-index: 10;
+            border-radius: 0 4px 4px 0;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slider-btn.next {
+            right: 0;
+            border-radius: 4px 0 0 4px;
+        }
+
+        .slider-btn:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .slider-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 8px 10px;
+            font-size: 0.85rem;
+            text-align: center;
+            box-sizing: border-box;
+            backdrop-filter: blur(2px);
+        }
     </style>
 </head>
 
@@ -830,14 +921,19 @@
 
             <div class="placeholder-grid">
 
-                <!-- Platzhalter 1 -->
-                <div class="placeholder-card" style="border-top-color: var(--orange);">
-                    <div class="coming-soon-badge">Demnächst</div>
-                    <div class="placeholder-icon-circle">
-                        <i class="material-icons" style="font-size: 2.5rem; color: var(--orange);">storefront</i>
+                <!-- Gastraum Slider (Ersetzt Platzhalter) -->
+                <div class="placeholder-card" style="border-top-color: var(--orange); padding: 0; overflow: hidden; display: block; position: relative;">
+                    <button class="slider-btn prev" onclick="moveSlider(-1)" title="Vorheriges Bild"><i class="material-icons">chevron_left</i></button>
+                    <button class="slider-btn next" onclick="moveSlider(1)" title="Nächstes Bild"><i class="material-icons">chevron_right</i></button>
+                    
+                    <div id="gastraum-slider" class="slider-container">
+                        <!-- Wird per JavaScript füllt -->
                     </div>
-                    <h4>Gastraum</h4>
-                    <p>Einblicke in unsere gemütlichen Räumlichkeiten und das Ambiente.</p>
+
+                    <div style="padding: 1.25rem; text-align: center;">
+                        <h4 style="margin: 0 0 4px 0; color: var(--dunkelblau);">Gastraum</h4>
+                        <p style="margin: 0; font-size: 0.85rem; color: #666;">Klicken Sie auf ein Bild zum Vergrößern.</p>
+                    </div>
                 </div>
 
                 <!-- Platzhalter 2 -->
@@ -1172,6 +1268,12 @@
         <i class="material-icons">arrow_upward</i>
     </button>
 
+    <!-- Lightbox Element -->
+    <div id="lightbox" onclick="closeLightbox()">
+        <span class="close-lightbox">&times;</span>
+        <img id="lightboxImg" src="" alt="Vergrößerte Ansicht">
+    </div>
+
     <div class="footer-wrapper">
         <footer>
             <div class="container">
@@ -1219,10 +1321,64 @@
             window.scrollTo(0, 0);
         }
 
+        // Lightbox Functions
+        function openLightbox(src) {
+            const lightbox = document.getElementById('lightbox');
+            const img = document.getElementById('lightboxImg');
+            img.src = src;
+            lightbox.style.display = 'flex';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+
+        // --- GASTRAUM SLIDER LOGIK ---
+        const gastraumImages = [
+            { src: 'gastraum_1.jpeg', caption: 'Lichtdurchfluteter Wintergarten für gemütliche Stunden' },
+            { src: 'gastraum_6.jpeg', caption: 'Herzliche Atmosphäre im großzügigen Innenbereich' },
+            { src: 'gastraum_4.jpeg', caption: 'Einladende Tischarrangements mit viel Platz für Sie' },
+            { src: 'gastraum_5.jpeg', caption: 'Rustikaler Charme kombiniert mit moderner Helligkeit' },
+            { src: 'gastraum_3.jpeg', caption: 'Perfekter Ort für größere Gruppen und Familienfeiern' },
+            { src: 'gastraum_2.jpeg', caption: 'Unsere urige Theke als Treffpunkt für gute Gespräche' }
+        ];
+
+        let currentSliderIdx = 0;
+
+        function initSlider() {
+            const container = document.getElementById('gastraum-slider');
+            if (!container) return;
+
+            gastraumImages.forEach((img, idx) => {
+                const slideDiv = document.createElement('div');
+                slideDiv.className = 'slide';
+                slideDiv.style.display = (idx === 0 ? 'block' : 'none');
+                
+                slideDiv.innerHTML = `
+                    <img src="${img.src}" alt="${img.caption}" class="slider-image" onclick="openLightbox('${img.src}')">
+                    <div class="slider-caption">${img.caption}</div>
+                `;
+                
+                container.appendChild(slideDiv);
+            });
+        }
+
+        function moveSlider(step) {
+            const slides = document.querySelectorAll('#gastraum-slider .slide');
+            if (slides.length === 0) return;
+
+            slides[currentSliderIdx].style.display = 'none';
+            currentSliderIdx = (currentSliderIdx + step + slides.length) % slides.length;
+            slides[currentSliderIdx].style.display = 'block';
+        }
+
         // Beim Laden der Seite wird standardmäßig die "home" (Hero Image) Sektion angezeigt.
 
         // --- INHALTE AUS daten.js LADEN ---
         document.addEventListener('DOMContentLoaded', () => {
+
+            // Initialize Slider
+            initSlider();
 
             // Check Live Status
             checkLiveStatus();
