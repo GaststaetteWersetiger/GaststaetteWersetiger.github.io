@@ -307,13 +307,43 @@ const webseitenInhalt = {
         { datum: "Sa, 28.03.2026", zeit: "ab 17.00 Uhr" },
         { datum: "So, 29.03.2026", zeit: "ab 12.00 Uhr" },
 	
-	{ datum: "Mo, 30.03.2026", zeit: "ab 17.00 Uhr" },
-	{ datum: "Di, 31.03.2026", zeit: "ab 17.00 Uhr" },
+		{ datum: "Mo, 30.03.2026", zeit: "ab 17.00 Uhr" },
+		{ datum: "Di, 31.03.2026", zeit: "ab 17.00 Uhr" },
         { datum: "Mi, 01.04.2026", zeit: "ab 17.00 Uhr" },
-	{ datum: "Do, 02.04.2026", zeit: "ab 17.00 Uhr" }
+		{ datum: "Do, 02.04.2026", zeit: "ab 17.00 Uhr" },
 
-
+		{ datum: "Fr, 03.04.2026", zeit: "ab 17.00 Uhr" },
+        { datum: "Sa, 04.04.2026", zeit: "ab 17.00 Uhr" },
+        { datum: "So, 05.04.2026", zeit: "ab 12.00 Uhr" },
+        { datum: "Mo, 06.04.2026", zeit: "ab 12.00 Uhr" },
+        { datum: "Di, 07.04.2026", zeit: "ab 17.00 Uhr" },
+		{ datum: "Mi, 08.04.2026", zeit: "ab 17.00 Uhr" },
+		{ datum: "Do, 09.04.2026", zeit: "ab 17.00 Uhr" },
+ 		{ datum: "Fr, 10.04.2026", zeit: "ab 17.00 Uhr" },
+        { datum: "So, 12.04.2026", zeit: "ab 12.00 Uhr" },	
+		{ datum: "Mo, 13.04.2026", zeit: "ab 17.00 Uhr" },
+		{ datum: "Di, 14.04.2026", zeit: "ab 17.00 Uhr" },
+        { datum: "Mi, 15.04.2026", zeit: "ab 17.00 Uhr" },
+		{ datum: "Do, 16.04.2026", zeit: "ab 17.00 Uhr" },
+ 		{ datum: "Fr, 17.04.2026", zeit: "ab 17.00 Uhr" },
+        { datum: "Sa, 18.04.2026", zeit: "ab 17.00 Uhr" },
+        { datum: "So, 19.04.2026", zeit: "ab 12.00 Uhr" },
+		{ datum: "Mo, 20.04.2026", zeit: "ab 17.00 Uhr" },
+		{ datum: "Di, 21.04.2026", zeit: "ab 17.00 Uhr" },
+        { datum: "Mi, 22.04.2026", zeit: "ab 17.00 Uhr" },
+		{ datum: "Do, 23.04.2026", zeit: "ab 17.00 Uhr" },
+ 		{ datum: "Fr, 24.04.2026", zeit: "ab 17.00 Uhr" },
+        { datum: "Sa, 25.04.2026", zeit: "ab 17.00 Uhr" },
+        { datum: "So, 26.04.2026", zeit: "ab 12.00 Uhr" },
+		{ datum: "Mo, 27.04.2026", zeit: "ab 17.00 Uhr" },
+		{ datum: "Di, 28.04.2026", zeit: "ab 17.00 Uhr" },
+        { datum: "Mi, 29.04.2026", zeit: "ab 17.00 Uhr" },
+		{ datum: "Do, 30.04.2026", zeit: "ab 17.00 Uhr" },
+ 		{ datum: "Fr, 01.05.2026", zeit: "ab 12.00 Uhr" },
+        { datum: "Sa, 02.05.2026", zeit: "ab 17.00 Uhr" },
+        { datum: "So, 03.05.2026", zeit: "ab 12.00 Uhr" }
     ],
+	
 
     // --- KONTAKT & IMPRESSUM ------------------------------------------------
     kontakt: {
