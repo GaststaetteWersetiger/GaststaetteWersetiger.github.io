@@ -5,7 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gaststätte Wersetiger</title>
-    <link rel="icon" type="image/png" href="Logo_Wersetiger_klein.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=6">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png?v=6">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=6">
+    <link rel="manifest" href="site.webmanifest">
     <!-- Einbindung von Google Icons für z.B. Reservierung/Standort -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -106,30 +109,71 @@
         }
 
         /* Mobile Adjustments for Header */
-        @media (max-width: 600px) {
+        @media (max-width: 1100px) {
             header .container {
                 flex-direction: column;
-                gap: 5px;
-                padding: 10px 5px;
+                gap: 12px;
+                padding: 12px 10px;
             }
 
             .logo {
-                flex-direction: column;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
                 text-align: center;
                 width: 100%;
-                gap: 5px;
+                gap: 10px;
             }
 
             .logo img {
-                max-height: 40px;
+                max-height: 38px;
                 margin-bottom: 0px;
             }
 
             .logo span {
-                font-size: 1.15rem;
-                white-space: normal;
-                /* Force wrap on very small screens */
+                font-size: 1.2rem;
+                white-space: nowrap;
                 border-bottom: 1px solid var(--orange);
+                padding-bottom: 2px;
+            }
+            
+            #liveStatusContainer {
+                margin: 0 auto !important; /* Zentriert statt rechts klebend */
+                font-size: 0.8rem;
+                padding: 4px 12px;
+            }
+
+            nav {
+                width: 100%;
+                margin-top: 5px;
+            }
+
+            nav ul {
+                display: grid !important;
+                grid-template-columns: 1fr 1fr;
+                gap: 8px !important;
+                width: 100%;
+            }
+
+            nav ul li {
+                width: 100%;
+                display: flex; /* Flexbox Container, um die Höhe des Grid-Items sicher an den Link weiterzugeben */
+                align-items: stretch; 
+            }
+
+            nav ul li a {
+                white-space: normal;
+                line-height: 1.3;
+                background-color: rgba(255, 255, 255, 0.08); /* Edler Button-Look */
+                border-radius: 6px;
+                padding: 8px 6px !important;
+                font-size: 0.85rem !important;
+                text-align: center;
+                flex: 1; /* Nimmt die volle Breite und Höhe des li-Containers ein */
+                display: flex;
+                align-items: center; /* Perfekte vertikale Zentrierung */
+                justify-content: center; /* Horizontale Zentrierung */
+                box-sizing: border-box;
             }
         }
 
@@ -521,28 +565,9 @@
             box-sizing: border-box;
         }
 
-        /* Responsive Improvements */
+        /* Responsive Improvements (Header definitions moved to top) */
         @media (max-width: 900px) {
-            header .container {
-                flex-direction: column;
-                gap: 1rem;
-                padding: 1rem;
-            }
-
-            nav ul {
-                gap: 15px;
-                flex-wrap: wrap;
-                /* Allow wrapping */
-                justify-content: center;
-                padding: 0;
-            }
-
-            nav ul li a {
-                font-size: 0.95rem;
-                /* Slightly smaller but readable */
-                padding: 5px 10px;
-                /* Adjust padding */
-            }
+            /* other rules */
         }
 
         @media (max-width: 600px) {
@@ -552,12 +577,6 @@
                 grid-template-columns: 1fr !important;
                 /* Stack vertically */
                 gap: 1.5rem !important;
-            }
-
-            nav ul li a {
-                white-space: normal;
-                line-height: 1.2;
-                /* Prevent breaking mid-word if possible, rely on wrap */
             }
         }
 
@@ -677,7 +696,7 @@
 
         /* Placeholder Cards Styling - NEW */
         #startseite-bilder {
-            padding: 1rem 0 4rem 0;
+            padding: 2.5rem 20px 4rem 20px; /* Mehr Rand und Luft gegen das Eingequetschte */
             background-color: var(--grau-bg);
             text-align: center;
         }
@@ -981,7 +1000,7 @@
 
 
             <!-- Two-Column Layout Container -->
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 30px 0;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; margin: 30px 0;">
 
                 <!-- Left Column: Food Menu Section -->
                 <div>
@@ -1033,7 +1052,10 @@
 
 
             <!-- Kalender & Reservierungsformular -->
-            <div class="calendar-container">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; align-items: start; margin-top: 15px;">
+                <!-- Linke Spalte -->
+                <div style="display: flex; flex-direction: column;">
+                    <div class="calendar-container">
                 <div class="calendar-header">
                     <button id="prevMonth"><i class="material-icons">chevron_left</i></button>
                     <span id="currentMonthYear" style="font-weight: bold;"></span>
@@ -1059,7 +1081,21 @@
                 </ul>
             </div>
 
-            <div id="reservationForm" class="reservation-form">
+                    <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem;">
+                        <a href="mailto:wersetiger@t-online.de?subject=Reservierungsanfrage" class="btn-primary" target="_blank"
+                            style="flex: 1; align-items:center; justify-content:center;">
+                            <i class="material-icons">email</i> E-Mail verfassen
+                        </a>
+                        <a href="tel:+49251381183" class="btn-primary"
+                            style="flex: 1; background-color: white; color: var(--dunkelblau); border: 2px solid var(--dunkelblau); align-items:center; justify-content:center;">
+                            <i class="material-icons">phone</i> Anrufen
+                        </a>
+                    </div>
+                </div> <!-- Ende linke Spalte -->
+                
+                <!-- Rechte Spalte -->
+                <div>
+                    <div id="reservationForm" class="reservation-form">
                 <button type="button" class="close-form-btn" onclick="closeForm()" title="Schließen"><i
                         class="material-icons">close</i></button>
                 <h3 style="margin-top: 0;">Reservierungsanfrage</h3>
@@ -1109,18 +1145,8 @@
                 </form>
             </div>
 
-            <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem;">
-                <a href="mailto:wersetiger@t-online.de?subject=Reservierungsanfrage" class="btn-primary" target="_blank"
-                    style="flex: 1; align-items:center; justify-content:center;">
-                    <i class="material-icons">email</i>
-                    Individuelle E-Mail verfassen
-                </a>
-                <a href="tel:+49251381183" class="btn-primary"
-                    style="flex: 1; background-color: white; color: var(--dunkelblau); border: 2px solid var(--dunkelblau); align-items:center; justify-content:center;">
-                    <i class="material-icons">phone</i>
-                    Telefonisch reservieren
-                </a>
-            </div>
+                </div> <!-- Ende rechte Spalte -->
+            </div> <!-- Ende Kalender-Grid -->
 
             <p><strong>Essentielle Informationen, die wir benötigen:</strong> Name, Datum, Uhrzeit und Personenanzahl.
             </p>
