@@ -210,7 +210,7 @@ const webseitenInhalt = {
                     { name: "Mirabelle mild", menge: "2 cl", preis: "2,80 €" },
                     { name: "Williams", menge: "2 cl", preis: "2,50 €" },
                     { name: "Obstler", menge: "2 cl", preis: "2,50 €" },
-                    { name: "Ouzo", menge: "2 cl", preis: "2,50 €" },
+                    { name: "Ouzo", menge: "2 cl", preis: "2,70 €" },
                     { name: "Sambuca", menge: "2 cl", preis: "2,70 €" },
                     { name: "Aufgesetzter Waldfrucht", menge: "2 cl", preis: "1,70 €" },
                     { name: "Aufgesetzter Kirsch", menge: "2 cl", preis: "1,70 €" },
