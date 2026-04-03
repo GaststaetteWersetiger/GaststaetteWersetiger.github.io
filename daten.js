@@ -4,6 +4,23 @@
 
 const webseitenInhalt = {
 
+    // --- AKTUELLES / SAISON -------------------------------------------------
+    spargelkarte: {
+        anzeigen: true,
+        titel: "Aktuelles - Spargelzeit 2026",
+        untertitel: "Alle Gerichte werden mit frischem Stangenspargel vom Hof Hennenberg zubereitet",
+        gerichte: [
+            { name: "Spargelcremesuppe mit Spargelstücken und Mandelsahnehaube", preis: "6,50 €" },
+            { name: "Spargelauflauf mit Schweinerückenstreifen und Käse überbacken dazu Röstinchen", preis: "18,30 €" },
+            { name: "Portion Spargel mit Sc. Hollandaise und Petersilienkartoffeln", preis: "17,50 €" },
+            { name: "gemischter Schinken mit Stangenspargel Sc. Hollandaise und Petersilienkartoffeln", preis: "21,50 €" },
+            { name: "Räucherlachs mit Stangenspargel, Sc. Hollandaise und Petersilienkartoffeln", preis: "24,50 €" },
+            { name: "mageres Schweineschnitzel mit Stangenspargel Sc. Hollandaise und Petersilienkartoffeln", preis: "25,80 €" },
+            { name: "mageres Schweineschnitzel mit Stangenspargel und Käse überbacken dazu Röstinchen", preis: "22,80 €" },
+            { name: "3 Schweinemedaillons mit Stangenspargel, Sc. Hollandaise und Petersilienkartoffeln", preis: "28,50 €" }
+        ]
+    },
+
     // --- SPEISEKARTE --------------------------------------------------------
     speisekarte: {
         titel: "Unsere aktuelle Auswahl",

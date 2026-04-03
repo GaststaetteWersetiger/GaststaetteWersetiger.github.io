@@ -935,6 +935,37 @@
     <main class="container">
         <!-- PLATZHALTER BILDER (Startseite) -->
         <section id="startseite-bilder" class="active">
+            
+            <!-- SPARGELKARTE (Aktionsbereich) -->
+            <div id="spargel-saison-container" style="display: none; margin-bottom: 4rem;">
+                <div style="background-color: white; padding: 2rem 2rem 3rem 2rem; border-radius: 12px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08); border-top: 4px solid var(--orange); position: relative; overflow: hidden;">
+                    <div style="position: absolute; top: 25px; right: -35px; background-color: var(--orange); color: var(--dunkelblau); padding: 5px 40px; transform: rotate(45deg); font-weight: bold; font-size: 1rem; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">Aktion</div>
+                    
+                    <h2 style="text-align: center; margin-bottom: 0.5rem; border-bottom: none; color: var(--dunkelblau); display: flex; justify-content: center; align-items: center; gap: 12px;">
+                        <svg width="2.8rem" height="2.8rem" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                            <g transform="translate(12, 12) rotate(45) scale(0.85) translate(-12, -12)">
+                                <g transform="translate(3, 4)"><path d="M12 9v11"/><path d="M10.5 9c0 0 -1.5 -4 1.5 -7c3 3 1.5 7 1.5 7z"/><path d="M10.5 4.5l1.5 1.5l1.5 -1.5"/><path d="M10.5 7.5l1.5 1.5l1.5 -1.5"/></g>
+                                <g transform="translate(-3, 2)"><path d="M12 9v13"/><path d="M10.5 9c0 0 -1.5 -4 1.5 -7c3 3 1.5 7 1.5 7z"/><path d="M10.5 4.5l1.5 1.5l1.5 -1.5"/><path d="M10.5 7.5l1.5 1.5l1.5 -1.5"/></g>
+                                <g><path d="M12 9v14"/><path d="M10.5 9c0 0 -1.5 -4 1.5 -7c3 3 1.5 7 1.5 7z" fill="white"/><path d="M10.5 4.5l1.5 1.5l1.5 -1.5"/><path d="M10.5 7.5l1.5 1.5l1.5 -1.5"/><path d="M12 13l-1.5-1.5"/><path d="M12 17l1.5-1.5"/><path d="M12 21l-1.5-1.5"/></g>
+                                <path d="M8 15 Q12 16.5 16 15" stroke-width="2"/><path d="M12 15.8l1 2.5"/><path d="M12 15.8l-1 2"/>
+                            </g>
+                        </svg>
+                        <span id="spargel-titel"></span>
+                        <svg width="2.8rem" height="2.8rem" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                            <g transform="translate(12, 12) rotate(-45) scale(0.85) translate(-12, -12)">
+                                <g transform="translate(3, 4)"><path d="M12 9v11"/><path d="M10.5 9c0 0 -1.5 -4 1.5 -7c3 3 1.5 7 1.5 7z"/><path d="M10.5 4.5l1.5 1.5l1.5 -1.5"/><path d="M10.5 7.5l1.5 1.5l1.5 -1.5"/></g>
+                                <g transform="translate(-3, 2)"><path d="M12 9v13"/><path d="M10.5 9c0 0 -1.5 -4 1.5 -7c3 3 1.5 7 1.5 7z"/><path d="M10.5 4.5l1.5 1.5l1.5 -1.5"/><path d="M10.5 7.5l1.5 1.5l1.5 -1.5"/></g>
+                                <g><path d="M12 9v14"/><path d="M10.5 9c0 0 -1.5 -4 1.5 -7c3 3 1.5 7 1.5 7z" fill="white"/><path d="M10.5 4.5l1.5 1.5l1.5 -1.5"/><path d="M10.5 7.5l1.5 1.5l1.5 -1.5"/><path d="M12 13l-1.5-1.5"/><path d="M12 17l1.5-1.5"/><path d="M12 21l-1.5-1.5"/></g>
+                                <path d="M8 15 Q12 16.5 16 15" stroke-width="2"/><path d="M12 15.8l1 2.5"/><path d="M12 15.8l-1 2"/>
+                            </g>
+                        </svg>
+                    </h2>
+                    
+                    <p id="spargel-untertitel" style="text-align: center; color: #666; font-style: italic; margin-bottom: 2rem; padding: 0 20px;"></p>
+                    <div id="spargel-gerichte" style="font-family: 'Dancing Script', cursive; font-size: 1.35rem; max-width: 800px; margin: 0 auto; text-align: left;"></div>
+                </div>
+            </div>
+
             <h2 style="text-align: center; margin-bottom: 0.5rem; border-bottom: none;">Hier entstehen neue Einblicke
             </h2>
             <p style="text-align: center; color: #666; margin-bottom: 1rem;">Wir aktualisieren aktuell unser
@@ -2207,9 +2238,41 @@
             }
         }
 
-        // Initialize Cookie Check
+        // Initialize Cookie Check & Spargelkarte
         document.addEventListener('DOMContentLoaded', () => {
             checkCookieConsent();
+            
+            // Spargelkarte aufbauen
+            if (typeof webseitenInhalt !== 'undefined' && webseitenInhalt.spargelkarte && webseitenInhalt.spargelkarte.anzeigen) {
+                const spargelContainer = document.getElementById('spargel-saison-container');
+                if (spargelContainer) {
+                    spargelContainer.style.display = 'block';
+                    
+                    document.getElementById('spargel-titel').textContent = webseitenInhalt.spargelkarte.titel;
+                    document.getElementById('spargel-untertitel').textContent = webseitenInhalt.spargelkarte.untertitel;
+                    
+                    const gerichteContainer = document.getElementById('spargel-gerichte');
+                    webseitenInhalt.spargelkarte.gerichte.forEach(gericht => {
+                        const itemDiv = document.createElement('div');
+                        itemDiv.className = 'menu-item';
+                        itemDiv.style.alignItems = 'flex-end';
+                        
+                        const nameSpan = document.createElement('span');
+                        nameSpan.textContent = gericht.name;
+                        nameSpan.style.flex = '1';
+                        nameSpan.style.marginRight = '15px';
+                        
+                        const priceSpan = document.createElement('span');
+                        priceSpan.className = 'price';
+                        priceSpan.textContent = gericht.preis;
+                        priceSpan.style.whiteSpace = 'nowrap';
+                        
+                        itemDiv.appendChild(nameSpan);
+                        itemDiv.appendChild(priceSpan);
+                        gerichteContainer.appendChild(itemDiv);
+                    });
+                }
+            }
         });
 
         // --- SIMPLE LIVE STATUS ---
