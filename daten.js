@@ -6,7 +6,7 @@ const webseitenInhalt = {
 
     // --- AKTUELLES / SAISON -------------------------------------------------
     spargelkarte: {
-        anzeigen: true,
+        anzeigen: false,
         titel: "Aktuelles - Spargelzeit 2026",
         untertitel: "Alle Gerichte werden mit frischem Stangenspargel vom Hof Hennenberg zubereitet",
         gerichte: [
