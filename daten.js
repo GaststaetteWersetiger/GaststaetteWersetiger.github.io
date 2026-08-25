@@ -487,7 +487,6 @@ const webseitenInhalt = {
         { datum: "So, 06.09.2026", zeit: "ab 12.00 Uhr" },
 		{ datum: "Mo, 07.09.2026", zeit: "ab 17.00 Uhr" },
 		{ datum: "Di, 08.09.2026", zeit: "ab 17.00 Uhr" },
-        { datum: "Mi, 09.09.2026", zeit: "geschlossen" },
 		{ datum: "Do, 10.09.2026", zeit: "ab 17.00 Uhr" },
  		{ datum: "Fr, 11.09.2026", zeit: "ab 17.00 Uhr" },
         { datum: "Sa, 12.09.2026", zeit: "ab 17.00 Uhr" },
@@ -525,7 +524,6 @@ const webseitenInhalt = {
         { datum: "Mi, 14.10.2026", zeit: "ab 17.00 Uhr" },
 		{ datum: "Do, 15.10.2026", zeit: "ab 17.00 Uhr" },
  		{ datum: "Fr, 16.10.2026", zeit: "ab 17.00 Uhr" },
-        { datum: "Sa, 17.10.2026", zeit: "geschlossen" },
         { datum: "So, 18.10.2026", zeit: "ab 17.00 Uhr" },
 		{ datum: "Mo, 19.10.2026", zeit: "ab 17.00 Uhr" },
 		{ datum: "Di, 20.10.2026", zeit: "ab 17.00 Uhr" },
@@ -541,8 +539,7 @@ const webseitenInhalt = {
  		{ datum: "Fr, 30.10.2026", zeit: "ab 17.00 Uhr" },
         { datum: "Sa, 31.10.2026", zeit: "ab 17.00 Uhr" }
 
-    ],
-    ],
+	 ],
 	
 
     // --- KONTAKT & IMPRESSUM ------------------------------------------------
