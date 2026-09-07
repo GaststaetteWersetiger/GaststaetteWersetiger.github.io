@@ -746,11 +746,6 @@
             }
         }
 
-        @keyframes modalFadeIn {
-            from { opacity: 0; transform: scale(0.92); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
         /* Back to top button */
         #backToTop {
             position: fixed;
@@ -1282,7 +1277,7 @@
 
             <!-- Aktionen: E-Mail & Anrufen -->
             <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem;">
-                <a href="mailto:wersetiger@t-online.de?subject=Reservierungsanfrage" class="btn-primary" target="_blank" onclick="showReservationModal()"
+                <a href="mailto:wersetiger@t-online.de?subject=Reservierungsanfrage" class="btn-primary" target="_blank"
                     style="flex: 1; min-width: 160px; align-items:center; justify-content:center;">
                     <i class="material-icons">email</i> E-Mail verfassen
                 </a>
@@ -1511,27 +1506,6 @@
         <button class="slider-btn next" style="right: 20px; left: auto; background-color: rgba(255,255,255,0.2); border-radius: 50%; width: 50px; height: 50px;" onclick="moveLightbox(1)" title="Nächstes Bild"><i class="material-icons">chevron_right</i></button>
         <img id="lightboxImg" src="" alt="Vergrößerte Ansicht">
         <div id="lightboxText" style="color: white; margin-top: 15px; font-size: 1.1rem; text-align: center; padding: 0 20px;"></div>
-    </div>
-
-    <!-- Zentrierter Reservierung-Hinweis Modal Overlay -->
-    <div id="reservationModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.65); z-index: 4000; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box; backdrop-filter: blur(3px);">
-        <div style="background-color: #fff; border-radius: 12px; max-width: 480px; width: 100%; padding: 28px 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); text-align: center; position: relative; border-top: 5px solid var(--blau); animation: modalFadeIn 0.3s ease-out; box-sizing: border-box;">
-            <button type="button" onclick="closeReservationModal()" style="position: absolute; top: 12px; right: 12px; background: none; border: none; font-size: 1.6rem; cursor: pointer; color: #666; line-height: 1; padding: 4px;" title="Schließen">&times;</button>
-            
-            <div style="width: 60px; height: 60px; background-color: #e8f4fd; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px auto; color: var(--blau);">
-                <i class="material-icons" style="font-size: 2.2rem;">info</i>
-            </div>
-
-            <h3 style="margin: 0 0 12px 0; color: var(--dunkelblau); font-size: 1.3rem;">Wichtiger Hinweis</h3>
-
-            <p style="margin: 0 0 22px 0; color: #333; line-height: 1.6; font-size: 1rem; font-weight: 500;">
-                Bitte beachten Sie: Ihre Anfrage ist unverbindlich und erst nach unserer persönlichen Rückbestätigung gültig.
-            </p>
-
-            <button type="button" onclick="closeReservationModal()" class="btn-primary" style="border: none; cursor: pointer; padding: 10px 24px; font-size: 1rem; margin: 0 auto; display: inline-flex; justify-content: center; align-items: center;">
-                Verstanden & Schließen
-            </button>
-        </div>
     </div>
 
     <div class="footer-wrapper">
@@ -2416,32 +2390,8 @@
 
             const body = encodeURIComponent(bodyText);
 
-            // Show focused modal in screen center
-            showReservationModal();
-
             window.location.href = `mailto:wersetiger@t-online.de?subject=${subject}&body=${body}`;
         }
-
-        function showReservationModal() {
-            const modal = document.getElementById('reservationModal');
-            if (modal) {
-                modal.style.display = 'flex';
-            }
-        }
-
-        function closeReservationModal() {
-            const modal = document.getElementById('reservationModal');
-            if (modal) {
-                modal.style.display = 'none';
-            }
-        }
-
-        window.addEventListener('click', (e) => {
-            const modal = document.getElementById('reservationModal');
-            if (e && e.target === modal) {
-                closeReservationModal();
-            }
-        });
 
         function closeForm() {
             const formContainer = document.getElementById('reservationForm');
