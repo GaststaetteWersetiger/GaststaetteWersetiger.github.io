@@ -70,7 +70,7 @@ const webseitenInhalt = {
                     { name: "Rückensteak vom Schwein mit Pfefferrahmsoße, Schinkenstreifen, geschmorten Champignons, Bratkartoffeln und ein Salat vom Buffet", preis: "18,90 €", allergene: "10,11,14,15" },
                     { name: "Holzfällersteak mit Pfefferrahmsoße und Zwiebeln,Spiegelei Potato wedges und ein Salat vom Buffet", preis: "18,90 €", allergene: "10,11,14,15" },
                     { name: "Rückensteak vom Schwein mit hausgemachter Kräuterbutter, Prinzessbohnen im Speckmantel und Kroketten", preis: "18,00 €", allergene: "" },
-                    { name: "\"Mixed Grill\" kleines Rumpsteak, Schweinemedaillon und Hähnchenfilet auf Grillgemüse, Cevapcci, hausgemachter Kräuterbutter und potato wedges", preis: "24,00 €", allergene: "10,11,15,16" }
+                    { name: "\"Mixed Grill\" kleines Rumpsteak, Schweinemedaillon und Hähnchenfilet auf Grillgemüse, hausgemachter Kräuterbutter und potato wedges", preis: "24,00 €", allergene: "10,11,15,16" }
                 ],
             },
             {
